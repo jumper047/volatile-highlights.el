@@ -197,7 +197,9 @@
 (eval-when-compile
   (require 'cl)
   (require 'easy-mmode)
-  (require 'advice))
+  (require 'advice)
+  (require 'pulse)
+ )
 
 (provide 'volatile-highlights)
 
@@ -273,6 +275,10 @@ where the deleted text used to be would be highlighted."
   :type 'boolean
   :group 'volatile-highlights)
 
+(defcustom Vhl/highlight-pulse nil
+  "If t, use pulse library to highlight region"
+  :type 'boolean
+  :group 'volatile-highlights)
 
 ;;;============================================================================
 ;;;
@@ -354,6 +360,11 @@ Optional args are the same as `vhl/add-range'."
 	  (set-extent-face hl face)
 	  (highlight-extent hl t)
 	  (set-extent-property hl 'volatile-highlights t))
+	 (Vhl/highlight-pulse
+	  ;; Using Pulse library
+	  (setq hl (make-overlay beg end buf))
+	  (pulse-momentary-highlight-overlay hl face)
+	  )
 	 (t
 	  ;; GNU Emacs
 	  (setq hl (make-overlay beg end buf))
