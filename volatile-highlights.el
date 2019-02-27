@@ -275,7 +275,7 @@ where the deleted text used to be would be highlighted."
   :type 'boolean
   :group 'volatile-highlights)
 
-(defcustom Vhl/highlight-pulse nil
+(defcustom Vhl/highlight-pulse t
   "If t, use pulse library to highlight region"
   :type 'boolean
   :group 'volatile-highlights)
